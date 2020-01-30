@@ -14,7 +14,7 @@ Steps:
 - $ cd vagralf-search
 - $ vagrant up
 
-[![asciicast](https://asciinema.org/a/295525.svg)](https://asciinema.org/a/295525)
+[![asciicast](https://asciinema.org/a/296776.svg)](https://asciinema.org/a/296776)
 
 Listening on a private NIC with address 192.168.33.11
 
