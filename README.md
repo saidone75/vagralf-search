@@ -1,7 +1,7 @@
 # vagralf-search
 Vagrant shell provisioner for Alfresco Search Services
 
-companion of https://github.com/saidone75/vagralf
+The search companion of https://github.com/saidone75/vagralf
 
 Tested with:
 - Vagrant 2.2.5
