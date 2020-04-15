@@ -3,7 +3,8 @@
 ALFRESCO_HOST=192.168.33.10
 export ALFRESCO_HOST # used by sed later
 
-ALF_DOWNLOAD_URL=https://download.alfresco.com/cloudfront/release/community/SearchServices/1.4.0/alfresco-search-services-1.4.0.zip
+ALF_DOWNLOAD_URL=https://download.alfresco.com/cloudfront/release/community/SearchServices/1.4.1/alfresco-search-services-1.4.1.zip
+
 LOGFILE=/vagrant/vagralf-search.log
 
 IFS=$'\n'
