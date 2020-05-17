@@ -10,9 +10,11 @@ Tested with:
 but should work with any reasonably recent mix of the two
 
 Steps:
-- $ git clone https://github.com/saidone75/vagralf-search.git
-- $ cd vagralf-search
-- $ vagrant up
+```console
+$ git clone https://github.com/saidone75/vagralf-search.git
+$ cd vagralf-search
+$ vagrant up
+```
 
 [![asciicast](https://asciinema.org/a/296776.svg)](https://asciinema.org/a/296776)
 
