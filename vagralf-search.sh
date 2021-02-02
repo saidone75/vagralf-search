@@ -3,7 +3,7 @@
 ALFRESCO_HOST=192.168.33.10
 export ALFRESCO_HOST # used by sed later
 
-ALF_DOWNLOAD_URL=https://download.alfresco.com/cloudfront/release/community/SearchServices/1.4.1/alfresco-search-services-1.4.1.zip
+ALF_DOWNLOAD_URL=https://download.alfresco.com/cloudfront/release/community/SearchServices/2.0.1/alfresco-search-services-2.0.1.zip
 
 LOGFILE=/vagrant/vagralf-search.log
 
@@ -55,7 +55,10 @@ apt update &> $LOGFILE
 
 # install required packages
 info "installing required packages"
-apt install mg openjdk-11-jre-headless unzip --assume-yes &>> $LOGFILE
+apt install mg unzip --assume-yes &>> $LOGFILE
+wget https://download.java.net/java/GA/jdk15.0.2/0d1cfde4252546c6931946de8db48ee2/7/GPL/openjdk-15.0.2_linux-x64_bin.tar.gz
+tar zxvf openjdk-15.0.2_linux-x64_bin.tar.gz -C /opt/
+ln -s /opt/jdk-15.0.2 /opt/java
 
 cd /vagrant
 # download and unzip Alfresco search services
@@ -72,6 +75,9 @@ useradd -g solr solr
 
 # tuning configuration
 sed -r 's#^\#(SOLR_PID_DIR=).*$#printf "%s%s%s" "\1" $ALF_DIR "/var/run";#e' $ALF_DIR/solr.in.sh | sudo tee $ALF_DIR/solr.in.sh &>> $LOGFILE
+sed -r 's#^\#(SOLR_JAVA_HOME=).*$#printf "%s%s%s" "\1" "/opt/java";#e' $ALF_DIR/solr.in.sh | sudo tee $ALF_DIR/solr.in.sh &>> $LOGFILE
+sed '0,/^#GC_TUNE=.*/s/^#\(GC_TUNE=\).*$/\1\"\"/' $ALF_DIR/solr.in.sh | sudo tee $ALF_DIR/solr.in.sh &>> $LOGFILE
+sed '0,/^#GC_LOG_OPTS=.*/s/^#\(GC_LOG_OPTS=.*$\).*$/\1/' $ALF_DIR/solr.in.sh | sudo tee $ALF_DIR/solr.in.sh &>> $LOGFILE
 cp $ALF_DIR/solr.in.sh /etc/default/
 
 sed -r 's#^(alfresco.host=).*$#printf "%s%s" "\1" $ALFRESCO_HOST;#e' $ALF_DIR/solrhome/templates/rerank/conf/solrcore.properties | sudo tee $ALF_DIR/solrhome/templates/rerank/conf/solrcore.properties &>> $LOGFILE
