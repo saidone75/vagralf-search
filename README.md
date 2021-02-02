@@ -23,6 +23,6 @@ Listening on a private NIC with address 192.168.33.11
 Solr URL http://192.168.33.11:8983/solr/#/
 
 ## License
-Copyright (c) 2020 Saidone
+Copyright (c) 2020, 2021 Saidone
 
 Distributed under the MIT License
