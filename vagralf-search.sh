@@ -55,10 +55,7 @@ apt update &> $LOGFILE
 
 # install required packages
 info "installing required packages"
-apt install mg unzip --assume-yes &>> $LOGFILE
-wget https://download.java.net/java/GA/jdk15.0.2/0d1cfde4252546c6931946de8db48ee2/7/GPL/openjdk-15.0.2_linux-x64_bin.tar.gz
-tar zxvf openjdk-15.0.2_linux-x64_bin.tar.gz -C /opt/
-ln -s /opt/jdk-15.0.2 /opt/java
+apt install mg unzip openjdk-16-jre-headless --assume-yes &>> $LOGFILE
 
 cd /vagrant
 # download and unzip Alfresco search services
@@ -75,7 +72,6 @@ useradd -g solr solr
 
 # tuning configuration
 sed -r 's#^\#(SOLR_PID_DIR=).*$#printf "%s%s%s" "\1" $ALF_DIR "/var/run";#e' $ALF_DIR/solr.in.sh | sudo tee $ALF_DIR/solr.in.sh &>> $LOGFILE
-sed -r 's#^\#(SOLR_JAVA_HOME=).*$#printf "%s%s%s" "\1" "/opt/java";#e' $ALF_DIR/solr.in.sh | sudo tee $ALF_DIR/solr.in.sh &>> $LOGFILE
 sed '0,/^#GC_TUNE=.*/s/^#\(GC_TUNE=\).*$/\1\"\"/' $ALF_DIR/solr.in.sh | sudo tee $ALF_DIR/solr.in.sh &>> $LOGFILE
 sed '0,/^#GC_LOG_OPTS=.*/s/^#\(GC_LOG_OPTS=.*$\).*$/\1/' $ALF_DIR/solr.in.sh | sudo tee $ALF_DIR/solr.in.sh &>> $LOGFILE
 cp $ALF_DIR/solr.in.sh /etc/default/
